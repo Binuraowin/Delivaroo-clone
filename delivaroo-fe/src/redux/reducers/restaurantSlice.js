@@ -11,13 +11,24 @@ const initialState = {
       updatedAt: '2023-07-02',
     },
   ],
+  restaurant: {
+
+  },
   loading: false,
   error: null,
 };
 
-export const fetchData = createAsyncThunk('api/fetchData', async () => {
+export const fetchData = createAsyncThunk('restaurantSlice/fetchData', async () => {
   try {
     const response = await makeResponse('restaurant');
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch data from the server.');
+  }
+});
+export const fetchRestaurntById = createAsyncThunk('restaurantSlice/fetchRestaurntById', async (id) => {
+  try {
+    const response = await makeResponse(`restaurant/${id}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch data from the server.');
@@ -38,6 +49,18 @@ const restaurantSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    builder
+      .addCase(fetchRestaurntById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchRestaurntById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.restaurant = action.payload;
+      })
+      .addCase(fetchRestaurntById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
