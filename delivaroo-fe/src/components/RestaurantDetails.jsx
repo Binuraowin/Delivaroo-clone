@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRestaurntById } from "../redux/reducers/restaurantSlice";
+import { fetchData } from "../redux/reducers/dishSlice";
 import { useHistory, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -8,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
+import DishCard from "./Dish/Dish";
 
 const RestaurantDetailsComponent = () => {
   const dispatch = useDispatch();
@@ -16,9 +18,16 @@ const RestaurantDetailsComponent = () => {
   const { restaurant, loading, error } = useSelector(
     (state) => state.restaurantSlice
   );
+  const { data } = useSelector(
+    (state) => state.dishSlice
+  );
+
 
   useEffect(() => {
     dispatch(fetchRestaurntById(id));
+  }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(fetchData());
   }, [dispatch, id]);
 
   const handleGoBack = () => {
@@ -34,6 +43,7 @@ const RestaurantDetailsComponent = () => {
   }
 
   return (
+    <div>
     <Box mt={2} mx={2}>
       <Box display="flex" alignItems="center" mb={2}>
         <IconButton onClick={handleGoBack}>
@@ -92,6 +102,13 @@ const RestaurantDetailsComponent = () => {
         </div>
       </div>
     </Box>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+      {data.map((dish) => (
+        <DishCard key={dish.id} dish={dish} />
+      ))}
+    </div>
+    </div>
+
   );
 };
 
