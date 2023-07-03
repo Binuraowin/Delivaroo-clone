@@ -7,6 +7,7 @@ const APIRouter = require("./routes/api.route");
 const authenticate = require('./middlewares/authenticate');
 const jwt = require('jsonwebtoken');
 dotenv.config();
+const PORT = process.env.PORT || 3003;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,20 +26,19 @@ const generateAccessToken = (userId) => {
   
   app.post('/api/token', (req, res) => {
     const { refreshToken } = req.body;
-    if (!refreshToken || !(refreshToken in refreshTokens)) {
-      return res.sendStatus(401);
-    }
-  
+
     jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
+   
   
-      const accessToken = generateAccessToken(user.userId);
+      const accessToken = generateAccessToken(req.body.userId);
       res.json({ accessToken });
     });
   });
 
 app.use("/api/v1", authenticate, APIRouter);
+
+app.listen(PORT, () => {
+  console.log(`service is running on port ${PORT}`)
+});
 
 module.exports = app;
