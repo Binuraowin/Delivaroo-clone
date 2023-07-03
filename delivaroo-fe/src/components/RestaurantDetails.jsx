@@ -12,6 +12,8 @@ import IconButton from "@mui/material/IconButton";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import DishCard from "./Dish/Dish";
+import RestaurantInfo from "../components/RestaurantInfo/RestaurantInfo"; // Import the RestaurantInfo component
+
 
 const RestaurantDetailsComponent = () => {
   const dispatch = useDispatch();
@@ -79,27 +81,12 @@ const RestaurantDetailsComponent = () => {
                   width: "100%",
                   height: "auto",
                   maxWidth: "500px",
+                  borderRadius: "5px",
                 }}
               />
             </div>
             <div>
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: "bold", mt: 2, mb: 1 }}
-              >
-                {restaurant.name}
-              </Typography>
-              Chicken·Salads·Healthy
-              <br />
-              0.20 miles away·Opens at 11:00·£0.99 delivery·£7.00 minimum
-              <br />
-              Info
-              <br />
-              Map, allergens, and hygiene rating
-              <br />
-              4.6 Excellent
-              <br />
-              See all 500 reviews
+              <RestaurantInfo restaurant={restaurant}/>
             </div>
           </div>
 
