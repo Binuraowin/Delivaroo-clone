@@ -2,43 +2,43 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { makeResponse } from './index';
 
 const initialState = {
-  data: [],
-  dish: { },
+  MenuData: [],
+  menu: { },
   loading: false,
   error: null,
 };
 
-export const fetchDishData = createAsyncThunk('dishSlice/fetchDishData', async () => {
+export const fetchMenuData = createAsyncThunk('menuSlice/fetchMenuData', async () => {
   try {
-    const response = await makeResponse('dish');
+    const response = await makeResponse('menu');
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch data from the server.');
   }
 });
-export const fetchRestaurntById = createAsyncThunk('dishSlice/fetchRestaurntById', async (id) => {
+export const fetchRestaurntById = createAsyncThunk('menuSlice/fetchRestaurntById', async (id) => {
   try {
-    const response = await makeResponse(`dish/${id}`);
+    const response = await makeResponse(`menu/${id}`);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch data from the server.');
   }
 });
 
-const dishSlice = createSlice({
+const menuSlice = createSlice({
   name: 'api',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchDishData.pending, (state) => {
+      .addCase(fetchMenuData.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchDishData.fulfilled, (state, action) => {
+      .addCase(fetchMenuData.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.MenuData = action.payload;
       })
-      .addCase(fetchDishData.rejected, (state, action) => {
+      .addCase(fetchMenuData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -48,7 +48,7 @@ const dishSlice = createSlice({
       })
       .addCase(fetchRestaurntById.fulfilled, (state, action) => {
         state.loading = false;
-        state.dish = action.payload;
+        state.menu = action.payload;
       })
       .addCase(fetchRestaurntById.rejected, (state, action) => {
         state.loading = false;
@@ -57,4 +57,4 @@ const dishSlice = createSlice({
   },
 });
 
-export default dishSlice.reducer;
+export default menuSlice.reducer;
