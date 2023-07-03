@@ -3,7 +3,7 @@ const Dish = require('../models/dish.model');
 const getAllDishes = async (req, res) => {
   try {
     const dishes = await Dish.findAll();
-    res.status(200).json(dishes);
+    res.status(200).json({data:dishes});
   } catch (error) {
     res.status(500).json({ message: 'Error fetching dishes' });
   }

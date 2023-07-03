@@ -1,12 +1,12 @@
 const faker = require('faker');
-const Restaurant = require('./models/restaurant');
-const Dish = require('./models/dish');
-const Menu = require('./models/menu');
-const Rating = require('./models/rating');
+const Restaurant = require('./models/restaurant.model');
+const Dish = require('./models/dish.model');
+const Menu = require('./models/menu.model');
+const Rating = require('./models/rating.model');
 const sequelize = require('./database/connection');
 
 const seedDatabase = async () => {
-  await sequelize.sync({ force: true }); // Drop existing tables and re-create
+  await sequelize.sync({ force: true });
 
   // Seed Restaurants
   const restaurantData = [];
@@ -55,7 +55,9 @@ const seedDatabase = async () => {
     const startIndex = i * 5;
     const endIndex = startIndex + 5;
     const selectedDishes = dishes.slice(startIndex, endIndex);
-    await menu.setDishes(selectedDishes);
+    await menu.setDishes(selectedDishes).catch((error) => {
+      console.error('Error associating dishes with the menu:', error);
+    });    
   }
 
   // Associate Ratings with Dishes

@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/connection');
+const Rating = require('./rating.model');
 
 const Dish = sequelize.define('Dish', {
   name: {
@@ -12,4 +13,5 @@ const Dish = sequelize.define('Dish', {
   },
 });
 
+Dish.hasMany(Rating, { as: 'ratings' });
 module.exports = Dish;
