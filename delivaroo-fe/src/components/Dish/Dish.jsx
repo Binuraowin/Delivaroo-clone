@@ -25,7 +25,8 @@ const DishCard = ({ dish }) => {
         border: "1px solid #ccc",
         borderRadius: "4px",
         padding: "20px",
-        maxWidth: "300px",
+        width:"500px",
+        maxWidth: "700px",
         transition: "box-shadow 0.3s ease-in-out",
         boxShadow: isHovered ? "0 4px 10px rgba(0, 0, 0, 0.4)" : "0 2px 5px rgba(0, 0, 0, 0.2)",
       }}
@@ -38,7 +39,7 @@ const DishCard = ({ dish }) => {
         }}
       >
         <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{name}</div>
-        <div>{price}</div>
+        <div style={{margin: '5px 0',fontSize: '14px',color: '#555'}}>{price}</div>
       </div>
       <img
         src={imageUrl}
