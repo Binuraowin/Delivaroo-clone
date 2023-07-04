@@ -13,13 +13,14 @@ const RestaurantComponent = () => {
   );
 
   useEffect(() => {
+    const getToken = async () => {
+      const accessToken = await token();
+      localStorage.setItem("authToken", accessToken);
+    };
+    getToken();
     dispatch(fetchData());
-  }, [dispatch]);
-
-  useEffect(async () => {
-    const accessToken = await token();
-    localStorage.setItem("authToken", accessToken);
   }, []);
+
 
   if (loading) {
     return <div>Loading...</div>;

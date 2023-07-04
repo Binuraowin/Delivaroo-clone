@@ -12,8 +12,8 @@ import IconButton from "@mui/material/IconButton";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import DishCard from "./Dish/Dish";
-import RestaurantInfo from "../components/RestaurantInfo/RestaurantInfo"; // Import the RestaurantInfo component
-
+import RestaurantInfo from "../components/RestaurantInfo/RestaurantInfo";
+import CartCard from "../components/CartCard";
 
 const RestaurantDetailsComponent = () => {
   const dispatch = useDispatch();
@@ -27,8 +27,6 @@ const RestaurantDetailsComponent = () => {
 
   useEffect(() => {
     dispatch(fetchRestaurntById(id));
-  }, [dispatch, id]);
-  useEffect(() => {
     dispatch(fetchDishData());
     dispatch(fetchMenuData());
   }, [dispatch, id]);
@@ -86,7 +84,7 @@ const RestaurantDetailsComponent = () => {
               />
             </div>
             <div>
-              <RestaurantInfo restaurant={restaurant}/>
+              <RestaurantInfo restaurant={restaurant} />
             </div>
           </div>
 
@@ -97,7 +95,8 @@ const RestaurantDetailsComponent = () => {
                 color="inherit"
                 sx={{
                   mb: 2,
-                  color: "darkgrey",
+                  color: "#555", 
+                  backgroundColor: "white",
                   "& .MuiSvgIcon-root": {
                     marginRight: "8px",
                   },
@@ -111,9 +110,11 @@ const RestaurantDetailsComponent = () => {
                 color="inherit"
                 sx={{
                   mb: 2,
-                  color: "darkgrey",
+                  color: "#555", 
+                  backgroundColor: "white", 
                   "& .MuiSvgIcon-root": {
                     marginRight: "8px",
+                    color: "#00ccbc",
                   },
                 }}
               >
@@ -146,7 +147,8 @@ const RestaurantDetailsComponent = () => {
               sx={{
                 cursor: "pointer",
                 color: clickedItem?.id === item.id ? "white" : "#00ccbc",
-                backgroundColor: clickedItem?.id === item.id ? "#00ccbc" : "transparent",
+                backgroundColor:
+                  clickedItem?.id === item.id ? "#00ccbc" : "transparent",
                 padding: "10px 15px",
                 borderRadius: "4px",
               }}
@@ -158,14 +160,31 @@ const RestaurantDetailsComponent = () => {
         </div>
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "20px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
-          {data.map((dish) => (
-            <DishCard key={dish.id} dish={dish} />
-          ))}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 6fr)",
+              gap: "20px",
+            }}
+          >
+            {data.map((dish) => (
+              <DishCard key={dish.id} dish={dish} />
+            ))}
+          </div>
+          <div>
+            <Box display="flex" flexDirection="column" alignItems="flex-end">
+              <CartCard
+                title="Your Basket is Empty"
+                buttonText="Go to checkout"
+                onButtonClick={() => console.log("Start group order clicked")}
+              />
+            </Box>
+          </div>
         </div>
       </Box>
     </div>

@@ -12,12 +12,12 @@ const RestaurantInfo = ({ restaurant }) => {
           {restaurant.name}
         </Typography>
       </div>
-      <div style={{ marginBottom: "10px" }}>
+      <div style={{ marginBottom: "10px",margin: '5px 0',fontSize: '14px',color: '#555' }}>
         Chicken·Salads·Healthy
         <br />
         0.20 miles away·Opens at 11:00·£0.99 delivery·£7.00 minimum
       </div>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", marginBottom: "10px",margin: '5px 0',fontSize: '14px',color: '#555' }}>
         <InfoOutlinedIcon style={{ marginRight: "5px" }} />
         <div>
         Info
@@ -26,7 +26,7 @@ const RestaurantInfo = ({ restaurant }) => {
         </div>
         <KeyboardArrowRightIcon style={{ marginLeft: "5px", fontSize: "18px", color: "#00ccbc" }} />
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center",margin: '5px 0',fontSize: '14px',color: '#555' }}>
         <StarIcon style={{ marginRight: "5px" }} />
         4.6 Excellent
         <br />
